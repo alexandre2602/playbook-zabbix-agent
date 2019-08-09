@@ -1,0 +1,17 @@
+---
+- name: Instalando repositório do Zabbix Agent {{ zabbix_version }}
+  yum:
+    name: "https://repo.zabbix.com/zabbix/{{ zabbix_version }}/rhel/7/x86_64/zabbix-release-{{ zabbix_release }}.el7.noarch.rpm"
+    state: present
+    update_cache: yes
+
+- name: Limpando o cache do YUM.
+  command: yum clean all
+  args:
+    warn: no
+
+- name: Instalando o Zabbix Agent
+  yum:
+    name: zabbix-agent
+    state: present
+    update_cache: yes

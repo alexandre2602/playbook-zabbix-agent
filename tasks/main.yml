@@ -1,0 +1,3 @@
+---
+- name: Instalação e configuração do Zabbix Agent
+  include_tasks: install.yml
