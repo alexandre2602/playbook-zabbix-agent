@@ -132,6 +132,12 @@ ListenPort={{ zabbix_agent_port | default('10050') }}
 # Default:
 # StartAgents=3
 
+{% if zabbix_agent_mode == "ativo" %}
+StartAgents=0
+{% else %}
+StartAgents=3
+{% endif %}
+
 ##### Active checks related
 
 ### Option: ServerActive

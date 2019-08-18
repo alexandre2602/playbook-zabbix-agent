@@ -14,4 +14,6 @@
     state: enabled
     permanent: yes
     immediate: yes
-  when: services_state.ansible_facts.services["firewalld.service"].state == "running"
+  when:
+    - services_state.ansible_facts.services["firewalld.service"].state == "running"
+    - zabbix_agent_mode == "passivo"
