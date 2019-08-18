@@ -1,31 +1,55 @@
-Role Name
+zabbix-agent
 =========
 
-A brief description of the role goes here.
+Role responsável por instalar e configurar o Zabbix Agent nos modos passivo ou ativo em máquinas
+com sistema operacional CentOS 7.x
 
-Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Esta role faz uso das seguintes variáveis.
 
-Dependencies
-------------
+```
+# Variável contendo a versão do Zabbix Agent.
+# URL contendo as versões disponíveis: https://repo.zabbix.com/zabbix/
+zabbix_agent_version: "4.0"
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+# Variável contendo a release do Zabbix Agent.
+zabbix_agent_release: "4.0-2"
+
+# Define se o agente será ativo ou passivo.
+# ativo: o agente envia os dados para o servidor (zabbix server). Valor padrão.
+# passivo: o agente aguarda do servidor (zabbix server) os pedidos de coleta de dados.
+zabbix_agent_mode: ativo
+
+# Variável contendo a porta utilizada pelo serviço zabbix-agent.service
+zabbix_agent_port: "10050"
+
+# Define a verbosidade do log do serviço.
+# Esse valor vai de 0 a 5.
+zabbix_agent_debuglevel: 2
+
+# IP/DNS do Zabbix Server.
+zabbix_agent_server: 10.10.10.10
+```
+
+> Os valores acima são utilizados por padrão.
+
+
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Como utilizar essa role na sua playbook. Exemplo:
 
-    - hosts: servers
+    ---
+    - name: Playbook de instalação do Zabbix Agent no CentOS 7.x
+      hosts: centos-servers
+      become: yes
+      become_method: sudo
       roles:
-         - { role: username.rolename, x: 42 }
+       - zabbix-agent
 
 License
 -------
@@ -35,4 +59,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+LinkedIn: https://br.linkedin.com/in/ewertonsilva00

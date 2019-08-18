@@ -1,0 +1,17 @@
+---
+- name: Obtendo informações de status dos serviços
+  service_facts:
+  register: services_state
+
+- fail:
+   msg: "O firewalld está parado!"
+  when: services_state.ansible_facts.services["firewalld.service"].state == "stopped"
+  ignore_errors: yes
+
+- name: Liberando a porta {{ zabbix_agent_port }} no firewall
+  firewalld:
+    port: "{{ zabbix_agent_port }}/tcp"
+    state: enabled
+    permanent: yes
+    immediate: yes
+  when: services_state.ansible_facts.services["firewalld.service"].state == "running"

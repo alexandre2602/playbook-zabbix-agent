@@ -1,3 +1,6 @@
 ---
 - name: Instalação e configuração do Zabbix Agent
   include_tasks: install.yml
+
+- name: Gerencia do firewall
+  include_tasks: firewall.yml
